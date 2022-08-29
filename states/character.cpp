@@ -36,6 +36,15 @@ const sf::Vector2f CharacterState::tpOffset = sf::Vector2f(
   nameHeight + atbHeight + 2*statHeight - tpWidth
 );
 
+const sf::Vector2f CharacterState::hpLabelOffsetMain = sf::Vector2f(10, 0);
+const sf::Vector2f CharacterState::hpLabelOffsetSub = sf::Vector2f(21, 5);
+const sf::Vector2f CharacterState::mpLabelOffsetMain = sf::Vector2f(10, 0);
+const sf::Vector2f CharacterState::mpLabelOffsetSub = sf::Vector2f(22, 5);
+const sf::Color CharacterState::hpBackgorund = sf::Color(100, 16, 16);
+const sf::Color CharacterState::mpBackgorund = sf::Color(16, 40, 100);
+const sf::Color CharacterState::hpForegorund = sf::Color(255, 64, 64);
+const sf::Color CharacterState::mpForegorund = sf::Color(64, 160, 255);
+
 sf::Vector2f slotPositions(Slot slot) {
   switch(slot) {
     case PLAYER_1:
@@ -90,20 +99,20 @@ CharacterState::CharacterState(GlobalValues *global, Slot slot) : CommonState(gl
   atbBar = new CharATBBarObject(global, position + atbOffset, 2000, 99);
   global->logMalloc("character|atbbar");
   hpBar = new CharStatBarObject(
-    global, position + hpOffset, sf::Color(255, 64, 64), sf::Color(100, 16, 16), 3456, 23456
+    global, position + hpOffset, hpForegorund, hpBackgorund, 3456, 23456
   );
   global->logMalloc("character|hpbar");
   hpLabel = new CharStatNameObject(
-    global, position + hpLabelOffset, sf::Color(255, 64, 64),
-    sf::Vector2f(10, 0), sf::Vector2f(21, 5), L"H", L"P"
+    global, position + hpLabelOffset, hpForegorund,
+    hpLabelOffsetMain, hpLabelOffsetSub, L"H", L"P"
   );
   global->logMalloc("character|hplabel");
   mpBar = new CharStatBarObject(
-    global, position + mpOffset, sf::Color(64, 160, 255), sf::Color(16, 40, 100), 88, 123
+    global, position + mpOffset, mpForegorund, mpBackgorund, 88, 123
   );
   global->logMalloc("character|mpbar");
-  mpLabel = new CharStatNameObject(global, position + mpLabelOffset, sf::Color(64, 160, 255),
-    sf::Vector2f(10, 0), sf::Vector2f(22, 5), L"M", L"P"
+  mpLabel = new CharStatNameObject(global, position + mpLabelOffset, mpForegorund,
+    mpLabelOffsetMain, mpLabelOffsetSub, L"M", L"P"
   );
   global->logMalloc("character|mplabel");
   tpBar = new TPBarObject(global, position + tpOffset, 13, 20);
