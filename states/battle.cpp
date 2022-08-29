@@ -1,21 +1,61 @@
 #include "battle.h"
 
-void BattleState::update() {
+bool BattleState::checkActiveATBs() {
   bool filledATB = false;
+  unsigned int maxAtb = 0;
+  // Look for filled ATBs, store one with highest value
   for (unsigned int i = 0; i < playerSlots; i++) {
-    characters[i]->update();
-    filledATB = filledATB || characters[i]->isAtbFilled();
+    CharacterState *character = characters[i];
+    if (character->isAtbFilled()) {
+      unsigned int atb = character->getAtbValue();
+      if (atb > maxAtb) {
+        turnTarget = character;
+        maxAtb = atb;
+        filledATB = true;
+      }
+    }
+  }
+  return filledATB;
+}
+
+void BattleState::setIncrementATBs(bool value) {
+  for (unsigned int i = 0; i < playerSlots; i++) {
+    characters[i]->setAtbActive(value);
   }
   for (unsigned int i = 0; i < enemySlots; i++) {
-    enemies[i]->update();
-    filledATB = filledATB || enemies[i]->isAtbFilled();
+    enemies[i]->setAtbActive(value);
   }
-  if (filledATB) {
-    for (unsigned int i = 0; i < playerSlots; i++) {
-      characters[i]->setAtbActive(false);
+}
+
+void BattleState::update() {
+  switch (state) {
+    case BattleMode::IDLE: {
+      for (unsigned int i = 0; i < playerSlots; i++) {
+        characters[i]->update();
+      }
+      for (unsigned int i = 0; i < enemySlots; i++) {
+        enemies[i]->update();
+      }
+      // If someone has a filled ATB, stop everyone's ATB
+      bool filledATB = checkActiveATBs();
+      if (filledATB) {
+        setIncrementATBs(false);
+        state = BattleMode::PLAYER_TURN;
+      }
+      break;
     }
-    for (unsigned int i = 0; i < enemySlots; i++) {
-      enemies[i]->setAtbActive(false);
+    case BattleMode::PLAYER_TURN: {
+      bool confirm = global->getKeyConfirm();
+      if (confirm && !previousConfirm) {
+        turnTarget->setAtbValue(0);
+        bool filledATB = checkActiveATBs();
+        if (!filledATB) {
+          setIncrementATBs(true);
+          state = BattleMode::IDLE;
+        }
+      }
+      previousConfirm = confirm;
+      break;
     }
   }
 }

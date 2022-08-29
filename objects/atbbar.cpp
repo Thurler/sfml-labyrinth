@@ -4,11 +4,16 @@ const sf::Color ATBBarObject::color = sf::Color::White;
 const sf::Color ATBBarObject::colorText = sf::Color::White;
 const sf::Color ATBBarObject::colorBackground = sf::Color(120, 120, 120);
 
+
+void ATBBarObject::setValue(unsigned long long c) {
+  BarObject::setValue(c);
+  text->setContent(std::to_wstring(curValue));
+}
+
 void ATBBarObject::update() {
   if (!activeIncrement) return;
   curValue += tickRate;
   setValue(curValue);
-  text->setContent(std::to_wstring(curValue));
   if (curValue >= limit) {
     activeIncrement = false;
   }

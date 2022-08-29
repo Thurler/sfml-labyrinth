@@ -38,8 +38,8 @@ class BarObject: public CommonObject {
     virtual float getSkewOffset() { return height / skewTan; }
     unsigned int getWidth() { return width; }
     unsigned int getHeight() { return height; }
-    unsigned int getValue() { return curValue; }
-    void setValue(unsigned int c) { curValue = c; }
+    unsigned long long getValue() { return curValue; }
+    void setValue(unsigned long long c) { curValue = c; }
 };
 
 #endif

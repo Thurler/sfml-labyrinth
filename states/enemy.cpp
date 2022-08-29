@@ -40,7 +40,6 @@ sf::Vector2f enemySlotPositions(Slot slot) {
 
 void EnemyState::setAtbValue(unsigned int value) {
   atbBar->setValue(value);
-  atbBar->setActiveIncrement(value < EnemyATBBarObject::limit);
 }
 
 void EnemyState::update() {

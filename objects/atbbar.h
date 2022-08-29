@@ -29,6 +29,7 @@ class ATBBarObject: public BarObject {
 
     bool getActiveIncrement() { return activeIncrement; }
     void setActiveIncrement(bool a) { activeIncrement = a; }
+    void setValue(unsigned long long c);
 };
 
 #endif

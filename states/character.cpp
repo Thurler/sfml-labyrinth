@@ -76,7 +76,6 @@ sf::Vector2f slotPositions(Slot slot) {
 
 void CharacterState::setAtbValue(unsigned int value) {
   atbBar->setValue(value);
-  atbBar->setActiveIncrement(value < CharATBBarObject::limit);
 }
 
 void CharacterState::update() {
@@ -99,7 +98,7 @@ CharacterState::CharacterState(GlobalValues *global, Slot slot) : CommonState(gl
   atbBar = new CharATBBarObject(global, position + atbOffset, 2000, 99);
   global->logMalloc("character|atbbar");
   hpBar = new CharStatBarObject(
-    global, position + hpOffset, hpForegorund, hpBackgorund, 3456, 23456
+    global, position + hpOffset, hpForegorund, hpBackgorund, 555555555555, 999999999999
   );
   global->logMalloc("character|hpbar");
   hpLabel = new CharStatNameObject(
