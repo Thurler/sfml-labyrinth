@@ -5,7 +5,7 @@
 #include "objects/fpstext.h"
 #include "objects/inputtext.h"
 
-#include "states/test.h"
+#include "states/battle.h"
 
 // g++ *.cpp objects/*.cpp objects/character/*.cpp objects/enemy/*.cpp states/*.cpp -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics -lsfml-window -lsfml-system -O2 -o shared.exe
 // g++ *.cpp objects/*.cpp objects/character/*.cpp objects/enemy/*.cpp states/*.cpp -DSFML_STATIC -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lgdi32 -lwinmm -O2 -o static.exe
@@ -20,7 +20,7 @@ int main() {
   window.setKeyRepeatEnabled(false);
 
   GlobalValues *global = new GlobalValues();
-  TestState *test = new TestState(global);
+  BattleState *test = new BattleState(global);
 
   while (window.isOpen()) {
     sf::Time time = global->restartTime();

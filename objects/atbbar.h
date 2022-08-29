@@ -26,6 +26,8 @@ class ATBBarObject: public BarObject {
 
     void update();
     void draw(sf::RenderWindow *w);
+
+    bool getActiveIncrement() { return activeIncrement; }
     void setActiveIncrement(bool a) { activeIncrement = a; }
 };
 

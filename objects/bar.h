@@ -34,9 +34,11 @@ class BarObject: public CommonObject {
 
     virtual void update() {}
     virtual void draw(sf::RenderWindow *w);
+
     virtual float getSkewOffset() { return height / skewTan; }
     unsigned int getWidth() { return width; }
     unsigned int getHeight() { return height; }
+    unsigned int getValue() { return curValue; }
     void setValue(unsigned int c) { curValue = c; }
 };
 

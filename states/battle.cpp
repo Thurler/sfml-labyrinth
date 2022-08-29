@@ -1,15 +1,26 @@
-#include "test.h"
+#include "battle.h"
 
-void TestState::update() {
+void BattleState::update() {
+  bool filledATB = false;
   for (unsigned int i = 0; i < playerSlots; i++) {
     characters[i]->update();
+    filledATB = filledATB || characters[i]->isAtbFilled();
   }
   for (unsigned int i = 0; i < enemySlots; i++) {
     enemies[i]->update();
+    filledATB = filledATB || enemies[i]->isAtbFilled();
+  }
+  if (filledATB) {
+    for (unsigned int i = 0; i < playerSlots; i++) {
+      characters[i]->setAtbActive(false);
+    }
+    for (unsigned int i = 0; i < enemySlots; i++) {
+      enemies[i]->setAtbActive(false);
+    }
   }
 }
 
-void TestState::draw(sf::RenderWindow *window) {
+void BattleState::draw(sf::RenderWindow *window) {
   panorama->draw(window);
   background->setShaderArg("shift", 0);
   background->draw(window);
@@ -21,7 +32,7 @@ void TestState::draw(sf::RenderWindow *window) {
   }
 }
 
-TestState::TestState(GlobalValues *global) : CommonState(global) {
+BattleState::BattleState(GlobalValues *global) : CommonState(global) {
   for (unsigned int i = 0; i < playerSlots; i++) {
     Slot s = static_cast<Slot>(i);
     characters[i] = new CharacterState(global, s);
@@ -43,7 +54,7 @@ TestState::TestState(GlobalValues *global) : CommonState(global) {
   global->logMalloc("test|panorama");
 }
 
-TestState::~TestState() {
+BattleState::~BattleState() {
   for (unsigned int i = 0; i < playerSlots; i++) {
     if (characters[i]) {
       delete characters[i];

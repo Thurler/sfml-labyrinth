@@ -10,7 +10,7 @@
 #include "../objects/sprite.h"
 #include "../objects/shadedsprite.h"
 
-class TestState: public CommonState {
+class BattleState: public CommonState {
   private:
     static const unsigned int playerSlots = 4;
     static const unsigned int enemySlots = 8;
@@ -21,8 +21,8 @@ class TestState: public CommonState {
     SpriteObject *panorama;
 
   public:
-    TestState(GlobalValues *g);
-    ~TestState();
+    BattleState(GlobalValues *g);
+    ~BattleState();
 
     void update();
     void draw(sf::RenderWindow *w);

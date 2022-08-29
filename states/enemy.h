@@ -28,6 +28,10 @@ class EnemyState: public CommonState {
 
     void update();
     void draw(sf::RenderWindow *w);
+
+    bool isAtbFilled() { return !atbBar->getActiveIncrement(); }
+    unsigned int getAtbValue() { return atbBar->getValue(); }
+    void setAtbActive(bool a) { atbBar->setActiveIncrement(a); }
     void setAtbValue(unsigned int v);
 };
 
