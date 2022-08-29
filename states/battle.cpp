@@ -1,21 +1,27 @@
 #include "battle.h"
 
+bool BattleState::cmpMaxATB(UnitState *unit, unsigned int maxAtb) {
+  return (unit->isAtbFilled() && unit->getAtbValue() > maxAtb);
+}
+
 bool BattleState::checkActiveATBs() {
-  bool filledATB = false;
   unsigned int maxAtb = 0;
   // Look for filled ATBs, store one with highest value
   for (unsigned int i = 0; i < playerSlots; i++) {
-    CharacterState *character = characters[i];
-    if (character->isAtbFilled()) {
-      unsigned int atb = character->getAtbValue();
-      if (atb > maxAtb) {
-        turnTarget = character;
-        maxAtb = atb;
-        filledATB = true;
-      }
+    UnitState *target = characters[i];
+    if (cmpMaxATB(target, maxAtb)) {
+      turnTarget = target;
+      maxAtb = target->getAtbValue();
     }
   }
-  return filledATB;
+  for (unsigned int i = 0; i < enemySlots; i++) {
+    UnitState *target = enemies[i];
+    if (cmpMaxATB(target, maxAtb)) {
+      turnTarget = target;
+      maxAtb = target->getAtbValue();
+    }
+  }
+  return maxAtb > 0;
 }
 
 void BattleState::setIncrementATBs(bool value) {
@@ -40,13 +46,19 @@ void BattleState::update() {
       bool filledATB = checkActiveATBs();
       if (filledATB) {
         setIncrementATBs(false);
-        state = BattleMode::PLAYER_TURN;
+        if (turnTarget->isEnemy()) {
+          state = BattleMode::ENEMY_SPELL;
+        } else {
+          state = BattleMode::PLAYER_TURN;
+        }
       }
       break;
     }
+    case BattleMode::ENEMY_SPELL:
     case BattleMode::PLAYER_TURN: {
       bool confirm = global->getKeyConfirm();
       if (confirm && !previousConfirm) {
+        // Move used, reset ATB and resume everyone's ATB
         turnTarget->setAtbValue(0);
         bool filledATB = checkActiveATBs();
         if (!filledATB) {

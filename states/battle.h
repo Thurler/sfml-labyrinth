@@ -7,6 +7,7 @@
 #include "common.h"
 #include "character.h"
 #include "enemy.h"
+#include "unit.h"
 #include "../objects/sprite.h"
 #include "../objects/shadedsprite.h"
 
@@ -31,9 +32,10 @@ class BattleState: public CommonState {
     SpriteObject *panorama;
     // State-related members
     BattleMode state = BattleMode::IDLE;
-    CharacterState *turnTarget = NULL;
+    UnitState *turnTarget = NULL;
 
     bool checkActiveATBs();
+    bool cmpMaxATB(UnitState *unit, unsigned int maxAtb);
     void setIncrementATBs(bool v);
 
   public:

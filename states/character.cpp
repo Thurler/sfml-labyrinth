@@ -74,14 +74,6 @@ sf::Vector2f slotPositions(Slot slot) {
   }
 }
 
-void CharacterState::setAtbValue(unsigned int value) {
-  atbBar->setValue(value);
-}
-
-void CharacterState::update() {
-  atbBar->update();
-}
-
 void CharacterState::draw(sf::RenderWindow *window) {
   face->draw(window);
   tpBar->draw(window);
@@ -93,7 +85,7 @@ void CharacterState::draw(sf::RenderWindow *window) {
   nameBar->draw(window);
 }
 
-CharacterState::CharacterState(GlobalValues *global, Slot slot) : CommonState(global) {
+CharacterState::CharacterState(GlobalValues *global, Slot slot) : UnitState(global) {
   position = slotPositions(slot);
   atbBar = new CharATBBarObject(global, position + atbOffset, 2000, 99);
   global->logMalloc("character|atbbar");

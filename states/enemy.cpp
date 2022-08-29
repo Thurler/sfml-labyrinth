@@ -38,14 +38,6 @@ sf::Vector2f enemySlotPositions(Slot slot) {
   }
 }
 
-void EnemyState::setAtbValue(unsigned int value) {
-  atbBar->setValue(value);
-}
-
-void EnemyState::update() {
-  atbBar->update();
-}
-
 void EnemyState::draw(sf::RenderWindow *window) {
   face->draw(window);
   nameBar->draw(window);
@@ -53,7 +45,7 @@ void EnemyState::draw(sf::RenderWindow *window) {
   atbBar->draw(window);
 }
 
-EnemyState::EnemyState(GlobalValues *global, Slot slot) : CommonState(global) {
+EnemyState::EnemyState(GlobalValues *global, Slot slot) : UnitState(global) {
   position = enemySlotPositions(slot);
   atbBar = new EnemyATBBarObject(global, position + atbOffset, 5000, 50);
   global->logMalloc("enemy|atbbar");
