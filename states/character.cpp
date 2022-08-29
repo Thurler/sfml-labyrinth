@@ -6,6 +6,7 @@ const float nameSkew = nameHeight/BarObject::skewTan;
 const float atbHeight = CharATBBarObject::height + 1;
 const float atbSkew = atbHeight/BarObject::skewTan;
 
+const float statWidth = CharStatBarObject::width + 1;
 const float statHeight = CharStatBarObject::height + 1;
 const float statSkew = statHeight/BarObject::skewTan;
 
@@ -21,8 +22,14 @@ const sf::Vector2f CharacterState::atbOffset = sf::Vector2f(
 const sf::Vector2f CharacterState::hpOffset = sf::Vector2f(
   nameSkew + atbSkew, nameHeight + atbHeight
 );
+const sf::Vector2f CharacterState::hpLabelOffset = sf::Vector2f(
+  nameSkew + atbSkew + statWidth, nameHeight + atbHeight
+);
 const sf::Vector2f CharacterState::mpOffset = sf::Vector2f(
   nameSkew + atbSkew + statSkew, nameHeight + atbHeight + statHeight
+);
+const sf::Vector2f CharacterState::mpLabelOffset = sf::Vector2f(
+  nameSkew + atbSkew + statSkew + statWidth, nameHeight + atbHeight + statHeight
 );
 const sf::Vector2f CharacterState::tpOffset = sf::Vector2f(
   nameSkew + atbSkew + 2*statSkew - tpBaseSkew - 1,
@@ -72,6 +79,8 @@ void CharacterState::draw(sf::RenderWindow *window) {
   tpBar->draw(window);
   mpBar->draw(window);
   hpBar->draw(window);
+  mpLabel->draw(window);
+  hpLabel->draw(window);
   atbBar->draw(window);
   nameBar->draw(window);
 }
@@ -81,13 +90,22 @@ CharacterState::CharacterState(GlobalValues *global, Slot slot) : CommonState(gl
   atbBar = new CharATBBarObject(global, position + atbOffset, 2000, 99);
   global->logMalloc("character|atbbar");
   hpBar = new CharStatBarObject(
-    global, position + hpOffset, sf::Color(255, 64, 64), sf::Color(100, 16, 16), 10000, 12345
+    global, position + hpOffset, sf::Color(255, 64, 64), sf::Color(100, 16, 16), 3456, 23456
   );
   global->logMalloc("character|hpbar");
+  hpLabel = new CharStatNameObject(
+    global, position + hpLabelOffset, sf::Color(255, 64, 64),
+    sf::Vector2f(10, 0), sf::Vector2f(21, 5), L"H", L"P"
+  );
+  global->logMalloc("character|hplabel");
   mpBar = new CharStatBarObject(
-    global, position + mpOffset, sf::Color(64, 160, 255), sf::Color(16, 40, 100), 100, 123
+    global, position + mpOffset, sf::Color(64, 160, 255), sf::Color(16, 40, 100), 88, 123
   );
   global->logMalloc("character|mpbar");
+  mpLabel = new CharStatNameObject(global, position + mpLabelOffset, sf::Color(64, 160, 255),
+    sf::Vector2f(10, 0), sf::Vector2f(22, 5), L"M", L"P"
+  );
+  global->logMalloc("character|mplabel");
   tpBar = new TPBarObject(global, position + tpOffset, 13, 20);
   global->logMalloc("character|tpbar");
   std::wstring name = L"アリス";
@@ -113,9 +131,17 @@ CharacterState::~CharacterState() {
     delete hpBar;
     global->logFree("character|hpbar");
   }
+  if (hpLabel) {
+    delete hpLabel;
+    global->logFree("character|hplabel");
+  }
   if (mpBar) {
     delete mpBar;
     global->logFree("character|mpbar");
+  }
+  if (mpLabel) {
+    delete mpLabel;
+    global->logFree("character|mplabel");
   }
   if (tpBar) {
     delete tpBar;
