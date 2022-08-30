@@ -33,9 +33,8 @@ ATBBarObject::ATBBarObject(
   global, position, color, colorBackground, width, height, startingValue, limit
 ) {
   tickRate = a_tickRate;
-  sf::Vector2f barPosition = position + barOffset;
   text = new StringBarObject(
-    global, barPosition - textOffset, textOffset, 50, 14, 12, true, textAlign, L""
+    global, position + barOffset, textOffset, 50, 14, 12, true, textAlign, L""
   );
   global->logMalloc("atb|text");
 }

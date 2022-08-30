@@ -9,6 +9,9 @@ void BarObject::drawAtPosition(sf::ConvexShape *fullBar, sf::ConvexShape *bar) {
   if (fillWidth < 1 && curValue > 0) {
     fillWidth = 1; // Make sure 1 pixel is visible for non-zero values
   }
+  if (fillWidth > width - 1 && curValue < maxValue) {
+    fillWidth = width - 1; // Make sure 1 pixel isnt visible for near-max values
+  }
   float skewShift = getSkewOffset();
 
   fullBar->setPointCount(4);

@@ -12,7 +12,7 @@ class EnemyATBBarObject: public ATBBarObject {
     static constexpr unsigned int height = 14;
   private:
     static constexpr float skewOffset = height / skewTan;
-    static constexpr Alignment textAlign = Alignment::TopLeft;
+    static constexpr Alignment textAlign = Alignment::TopRight;
     static const sf::Vector2f barOffset;
     static const sf::Vector2f textOffset;
 
