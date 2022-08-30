@@ -45,7 +45,7 @@ void EnemyState::draw(sf::RenderWindow *window) {
   atbBar->draw(window);
 }
 
-EnemyState::EnemyState(GlobalValues *global, Slot slot) : UnitState(global) {
+EnemyState::EnemyState(GlobalValues *global, Slot slot) : UnitState(global, slot) {
   position = enemySlotPositions(slot);
   atbBar = new EnemyATBBarObject(global, position + atbOffset, 5000, 50);
   global->logMalloc("enemy|atbbar");
@@ -66,6 +66,10 @@ EnemyState::EnemyState(GlobalValues *global, Slot slot) : UnitState(global) {
   std::string fname = "./img/Enemy_1F_TrapWeed.png";
   face = new SpriteObject(global, position, Alignment::BottomCenter, fname);
   global->logMalloc("enemy|facebar");
+  std::string fnameHL = "./img/Enemy_1F_TrapWeed_HL.png";
+  faceHL = new SpriteObject(global, position, Alignment::BottomCenter, fnameHL);
+  global->logMalloc("character|faceHL");
+  faceHL->setColor(sf::Color::Transparent);
 }
 
 EnemyState::~EnemyState() {
@@ -80,6 +84,10 @@ EnemyState::~EnemyState() {
   if (face) {
     delete face;
     global->logFree("enemy|face");
+  }
+  if (faceHL) {
+    delete faceHL;
+    global->logFree("enemy|faceHL");
   }
   if (nameBar) {
     delete nameBar;

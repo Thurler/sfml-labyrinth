@@ -9,13 +9,20 @@
 
 class UnitState: public CommonState {
   protected:
+    static constexpr unsigned int highlightDuration = 30;
+    static constexpr unsigned int highlightLimit = 255;
+    static constexpr float highlightIncrement = (float)highlightLimit / highlightDuration;
     sf::Vector2f position;
     ATBBarObject *atbBar;
+    SpriteObject *faceHL;
     SpriteObject *face;
     Slot slot;
+    bool highlighted = false;
+    bool highlightCycle = true;
+    float highlightValue = 0;
 
   public:
-    UnitState(GlobalValues *global) : CommonState(global) {}
+    UnitState(GlobalValues *global, Slot s) : slot(s), CommonState(global) {}
     virtual ~UnitState() {}
 
     void update();
@@ -24,7 +31,8 @@ class UnitState: public CommonState {
     bool isAtbFilled() { return atbBar->isFilled(); }
     unsigned int getAtbValue() { return atbBar->getValue(); }
     void setAtbActive(bool a) { atbBar->setActiveIncrement(a); }
-    void setAtbValue(unsigned int v);
+    void setAtbValue(unsigned int v) { atbBar->setValue(v); }
+    void setHighlight(bool hl);
 };
 
 #endif

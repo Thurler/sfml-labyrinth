@@ -28,6 +28,8 @@ class SpriteObject: public CommonObject {
 
     virtual void update() {}
     virtual void draw(sf::RenderWindow *w);
+
+    void setColor(const sf::Color &color) { sprite.setColor(color); }
     void setTexRect(const sf::IntRect &rect);
 };
 

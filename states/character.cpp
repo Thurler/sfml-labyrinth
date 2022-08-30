@@ -76,6 +76,9 @@ sf::Vector2f slotPositions(Slot slot) {
 
 void CharacterState::draw(sf::RenderWindow *window) {
   face->draw(window);
+  if (highlighted) {
+    faceHL->draw(window);
+  }
   tpBar->draw(window);
   mpBar->draw(window);
   hpBar->draw(window);
@@ -85,7 +88,7 @@ void CharacterState::draw(sf::RenderWindow *window) {
   nameBar->draw(window);
 }
 
-CharacterState::CharacterState(GlobalValues *global, Slot slot) : UnitState(global) {
+CharacterState::CharacterState(GlobalValues *global, Slot slot) : UnitState(global, slot) {
   position = slotPositions(slot);
   atbBar = new CharATBBarObject(global, position + atbOffset, 2000, 99);
   global->logMalloc("character|atbbar");
@@ -118,8 +121,15 @@ CharacterState::CharacterState(GlobalValues *global, Slot slot) : UnitState(glob
   if (slot == Slot::PLAYER_2) fname = "./img/Chara_Aya_LFace.png";
   if (slot == Slot::PLAYER_3) fname = "./img/Chara_Chen_LFace.png";
   if (slot == Slot::PLAYER_4) fname = "./img/Chara_Cirno_LFace.png";
+  std::string fnameHL = "./img/Chara_Alice_LFace_HL.png";
+  if (slot == Slot::PLAYER_2) fnameHL = "./img/Chara_Aya_LFace_HL.png";
+  if (slot == Slot::PLAYER_3) fnameHL = "./img/Chara_Chen_LFace_HL.png";
+  if (slot == Slot::PLAYER_4) fnameHL = "./img/Chara_Cirno_LFace_HL.png";
   face = new SpriteObject(global, position + faceOffset, Alignment::BottomLeft, fname);
   global->logMalloc("character|face");
+  faceHL = new SpriteObject(global, position + faceOffset, Alignment::BottomLeft, fnameHL);
+  global->logMalloc("character|faceHL");
+  faceHL->setColor(sf::Color::Transparent);
 }
 
 CharacterState::~CharacterState() {
@@ -154,5 +164,9 @@ CharacterState::~CharacterState() {
   if (face) {
     delete face;
     global->logFree("character|face");
+  }
+  if (faceHL) {
+    delete faceHL;
+    global->logFree("character|faceHL");
   }
 }

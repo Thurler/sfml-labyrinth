@@ -21,7 +21,16 @@ bool BattleState::checkActiveATBs() {
       maxAtb = target->getAtbValue();
     }
   }
-  return maxAtb > 0;
+  bool ret = (maxAtb > 0);
+  if (ret) {
+    if (turnTarget->isEnemy()) {
+      state = BattleMode::ENEMY_SPELL;
+    } else {
+      turnTarget->setHighlight(true);
+      state = BattleMode::PLAYER_TURN;
+    }
+  }
+  return ret;
 }
 
 void BattleState::setIncrementATBs(bool value) {
@@ -34,23 +43,18 @@ void BattleState::setIncrementATBs(bool value) {
 }
 
 void BattleState::update() {
+  for (unsigned int i = 0; i < playerSlots; i++) {
+    characters[i]->update();
+  }
+  for (unsigned int i = 0; i < enemySlots; i++) {
+    enemies[i]->update();
+  }
   switch (state) {
     case BattleMode::IDLE: {
-      for (unsigned int i = 0; i < playerSlots; i++) {
-        characters[i]->update();
-      }
-      for (unsigned int i = 0; i < enemySlots; i++) {
-        enemies[i]->update();
-      }
       // If someone has a filled ATB, stop everyone's ATB
       bool filledATB = checkActiveATBs();
       if (filledATB) {
         setIncrementATBs(false);
-        if (turnTarget->isEnemy()) {
-          state = BattleMode::ENEMY_SPELL;
-        } else {
-          state = BattleMode::PLAYER_TURN;
-        }
       }
       break;
     }
@@ -60,6 +64,7 @@ void BattleState::update() {
       if (confirm && !previousConfirm) {
         // Move used, reset ATB and resume everyone's ATB
         turnTarget->setAtbValue(0);
+        turnTarget->setHighlight(false);
         bool filledATB = checkActiveATBs();
         if (!filledATB) {
           setIncrementATBs(true);
