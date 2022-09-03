@@ -3,9 +3,40 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "common.h"
-#include "../objects/atbbar.h"
-#include "../objects/sprite.h"
+#include "../common.h"
+#include "../../objects/atbbar.h"
+#include "../../objects/sprite.h"
+
+struct UnitStats {
+  unsigned int level;
+  unsigned long long hp;
+  unsigned long long maxHP;
+  unsigned int hpRec;
+  unsigned long long mp;
+  unsigned long long maxMP;
+  unsigned int mpRec;
+  unsigned int tp;
+  unsigned long long atk;
+  unsigned long long def;
+  unsigned long long mag;
+  unsigned long long mnd;
+  unsigned long long spd;
+  unsigned int acc;
+  unsigned int eva;
+  unsigned int fir;
+  unsigned int cld;
+  unsigned int wnd;
+  unsigned int ntr;
+  unsigned int drk;
+  unsigned int spi;
+  unsigned int mys;
+  unsigned int phy;
+  unsigned int psn;
+  unsigned int par;
+  unsigned int sil;
+  unsigned int dth;
+  unsigned int dbf;
+};
 
 class UnitState: public CommonState {
   protected:
@@ -16,6 +47,7 @@ class UnitState: public CommonState {
     ATBBarObject *atbBar;
     SpriteObject *faceHL;
     SpriteObject *face;
+    UnitStats stats;
     Slot slot;
     bool highlighted = false;
     bool highlightCycle = true;

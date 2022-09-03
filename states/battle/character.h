@@ -4,12 +4,12 @@
 #include <SFML/Graphics.hpp>
 
 #include "unit.h"
-#include "../objects/character/atbbar.h"
-#include "../objects/character/statbar.h"
-#include "../objects/character/statname.h"
-#include "../objects/character/tpbar.h"
-#include "../objects/character/namebar.h"
-#include "../objects/sprite.h"
+#include "../../objects/character/atbbar.h"
+#include "../../objects/character/statbar.h"
+#include "../../objects/character/statname.h"
+#include "../../objects/character/tpbar.h"
+#include "../../objects/character/namebar.h"
+#include "../../objects/sprite.h"
 
 class CharacterState: public UnitState {
   private:

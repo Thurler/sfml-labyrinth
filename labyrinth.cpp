@@ -5,10 +5,10 @@
 #include "objects/fpstext.h"
 #include "objects/inputtext.h"
 
-#include "states/battle.h"
+#include "states/battle/battle.h"
 
-// g++ *.cpp objects/*.cpp objects/character/*.cpp objects/enemy/*.cpp states/*.cpp -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics -lsfml-window -lsfml-system -O2 -o shared.exe
-// g++ *.cpp objects/*.cpp objects/character/*.cpp objects/enemy/*.cpp states/*.cpp -DSFML_STATIC -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lgdi32 -lwinmm -O2 -o static.exe
+// g++ *.cpp objects/*.cpp objects/character/*.cpp objects/enemy/*.cpp states/battle/*.cpp -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics -lsfml-window -lsfml-system -O2 -o shared.exe
+// g++ *.cpp objects/*.cpp objects/character/*.cpp objects/enemy/*.cpp states/battle/*.cpp -DSFML_STATIC -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lgdi32 -lwinmm -O2 -o static.exe
 
 int main() {
   sf::ContextSettings settings;

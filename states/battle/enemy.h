@@ -4,9 +4,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "unit.h"
-#include "../objects/enemy/atbbar.h"
-#include "../objects/enemy/statbar.h"
-#include "../objects/enemy/namebar.h"
+#include "../../objects/enemy/atbbar.h"
+#include "../../objects/enemy/statbar.h"
+#include "../../objects/enemy/namebar.h"
 
 class EnemyState: public UnitState {
   private:

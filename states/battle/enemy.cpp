@@ -40,6 +40,9 @@ sf::Vector2f enemySlotPositions(Slot slot) {
 
 void EnemyState::draw(sf::RenderWindow *window) {
   face->draw(window);
+  if (highlighted) {
+    faceHL->draw(window);
+  }
   nameBar->draw(window);
   hpBar->draw(window);
   atbBar->draw(window);

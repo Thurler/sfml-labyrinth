@@ -4,12 +4,12 @@
 #include <SFML/Graphics.hpp>
 #include "math.h"
 
-#include "common.h"
 #include "character.h"
 #include "enemy.h"
 #include "unit.h"
-#include "../objects/sprite.h"
-#include "../objects/shadedsprite.h"
+#include "../common.h"
+#include "../../objects/sprite.h"
+#include "../../objects/shadedsprite.h"
 
 enum BattleMode {
   IDLE = 0,
