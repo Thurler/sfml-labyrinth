@@ -8,7 +8,7 @@
 #include "../../objects/sprite.h"
 
 struct UnitStats {
-  unsigned int level;
+  unsigned long level;
   unsigned long long hp;
   unsigned long long maxHP;
   unsigned int hpRec;

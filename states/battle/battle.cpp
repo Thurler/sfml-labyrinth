@@ -89,10 +89,10 @@ void BattleState::draw(sf::RenderWindow *window) {
   }
 }
 
-BattleState::BattleState(GlobalValues *global) : CommonState(global) {
+BattleState::BattleState(GlobalValues *global, PartyState *party) : CommonState(global) {
   for (unsigned int i = 0; i < playerSlots; i++) {
     Slot s = static_cast<Slot>(i);
-    characters[i] = new CharacterState(global, s);
+    characters[i] = new CharacterState(global, s, party->getCharacter());
     global->logMalloc("test|character-" + std::to_string(i));
   }
   for (unsigned int i = 0; i < enemySlots; i++) {

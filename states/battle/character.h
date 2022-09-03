@@ -10,6 +10,7 @@
 #include "../../objects/character/tpbar.h"
 #include "../../objects/character/namebar.h"
 #include "../../objects/sprite.h"
+#include "../characters/common.h"
 
 class CharacterState: public UnitState {
   private:
@@ -37,7 +38,7 @@ class CharacterState: public UnitState {
     TPBarObject *tpBar;
 
   public:
-    CharacterState(GlobalValues *g, Slot s);
+    CharacterState(GlobalValues *g, Slot s, CommonCharacter *c);
     ~CharacterState();
 
     void draw(sf::RenderWindow *w);

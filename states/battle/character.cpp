@@ -88,12 +88,15 @@ void CharacterState::draw(sf::RenderWindow *window) {
   nameBar->draw(window);
 }
 
-CharacterState::CharacterState(GlobalValues *global, Slot slot) : UnitState(global, slot) {
+CharacterState::CharacterState(
+  GlobalValues *global, Slot slot, CommonCharacter *character
+) : UnitState(global, slot) {
   position = slotPositions(slot);
-  atbBar = new CharATBBarObject(global, position + atbOffset, 2000, 99);
+  CharacterStats stats = character->getStats();
+  atbBar = new CharATBBarObject(global, position + atbOffset, 1234, stats.spd);
   global->logMalloc("character|atbbar");
   hpBar = new CharStatBarObject(
-    global, position + hpOffset, hpForegorund, hpBackgorund, 555555555555, 999999999999
+    global, position + hpOffset, hpForegorund, hpBackgorund, stats.hp, stats.hp
   );
   global->logMalloc("character|hpbar");
   hpLabel = new CharStatNameObject(
@@ -102,30 +105,20 @@ CharacterState::CharacterState(GlobalValues *global, Slot slot) : UnitState(glob
   );
   global->logMalloc("character|hplabel");
   mpBar = new CharStatBarObject(
-    global, position + mpOffset, mpForegorund, mpBackgorund, 88, 123
+    global, position + mpOffset, mpForegorund, mpBackgorund, stats.mp, stats.mp
   );
   global->logMalloc("character|mpbar");
   mpLabel = new CharStatNameObject(global, position + mpLabelOffset, mpForegorund,
     mpLabelOffsetMain, mpLabelOffsetSub, L"M", L"P"
   );
   global->logMalloc("character|mplabel");
-  tpBar = new TPBarObject(global, position + tpOffset, 13, 20);
+  tpBar = new TPBarObject(global, position + tpOffset, stats.tp, stats.tp);
   global->logMalloc("character|tpbar");
-  std::wstring name = L"アリス";
-  if (slot == Slot::PLAYER_2) name = L"文";
-  if (slot == Slot::PLAYER_3) name = L"橙";
-  if (slot == Slot::PLAYER_4) name = L"チルノ";
-  nameBar = new CharNameBarObject(global, position, name);
+  nameBar = new CharNameBarObject(global, position, character->getName());
   global->logMalloc("character|namebar");
-  std::string fname = "./img/Chara_Alice_LFace.png";
-  if (slot == Slot::PLAYER_2) fname = "./img/Chara_Aya_LFace.png";
-  if (slot == Slot::PLAYER_3) fname = "./img/Chara_Chen_LFace.png";
-  if (slot == Slot::PLAYER_4) fname = "./img/Chara_Cirno_LFace.png";
-  std::string fnameHL = "./img/Chara_Alice_LFace_HL.png";
-  if (slot == Slot::PLAYER_2) fnameHL = "./img/Chara_Aya_LFace_HL.png";
-  if (slot == Slot::PLAYER_3) fnameHL = "./img/Chara_Chen_LFace_HL.png";
-  if (slot == Slot::PLAYER_4) fnameHL = "./img/Chara_Cirno_LFace_HL.png";
-  face = new SpriteObject(global, position + faceOffset, Alignment::BottomLeft, fname);
+  std::string fnameL = character->getTextureName() + "_LFace.png";
+  std::string fnameHL = character->getTextureName() + "_LFace_HL.png";
+  face = new SpriteObject(global, position + faceOffset, Alignment::BottomLeft, fnameL);
   global->logMalloc("character|face");
   faceHL = new SpriteObject(global, position + faceOffset, Alignment::BottomLeft, fnameHL);
   global->logMalloc("character|faceHL");

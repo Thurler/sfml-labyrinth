@@ -5,10 +5,11 @@
 #include "objects/fpstext.h"
 #include "objects/inputtext.h"
 
+#include "states/party.h"
 #include "states/battle/battle.h"
 
-// g++ *.cpp objects/*.cpp objects/character/*.cpp objects/enemy/*.cpp states/battle/*.cpp -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics -lsfml-window -lsfml-system -O2 -o shared.exe
-// g++ *.cpp objects/*.cpp objects/character/*.cpp objects/enemy/*.cpp states/battle/*.cpp -DSFML_STATIC -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lgdi32 -lwinmm -O2 -o static.exe
+// g++ *.cpp objects/*.cpp objects/character/*.cpp objects/enemy/*.cpp states/battle/*.cpp states/characters/*.cpp -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics -lsfml-window -lsfml-system -O2 -o shared.exe
+// g++ *.cpp objects/*.cpp objects/character/*.cpp objects/enemy/*.cpp states/battle/*.cpp states/characters/*.cpp -DSFML_STATIC -I C:\SFML-2.5.1\include -L C:\SFML-2.5.1\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lgdi32 -lwinmm -O2 -o static.exe
 
 int main() {
   sf::ContextSettings settings;
@@ -20,7 +21,8 @@ int main() {
   window.setKeyRepeatEnabled(false);
 
   GlobalValues *global = new GlobalValues();
-  BattleState *test = new BattleState(global);
+  PartyState *party = new PartyState(global);
+  BattleState *battle = new BattleState(global, party);
 
   while (window.isOpen()) {
     sf::Time time = global->restartTime();
@@ -56,15 +58,16 @@ int main() {
     }
 
     // Update states and objects
-    test->update();
+    battle->update();
 
     // Render view
-    test->draw(&window);
+    battle->draw(&window);
 
     window.display();
   }
 
-  delete test;
+  delete battle;
+  delete party;
   delete global;
 
   return 0;

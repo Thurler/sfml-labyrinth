@@ -8,6 +8,7 @@
 #include "enemy.h"
 #include "unit.h"
 #include "../common.h"
+#include "../party.h"
 #include "../../objects/sprite.h"
 #include "../../objects/shadedsprite.h"
 
@@ -39,7 +40,7 @@ class BattleState: public CommonState {
     void setIncrementATBs(bool v);
 
   public:
-    BattleState(GlobalValues *g);
+    BattleState(GlobalValues *g, PartyState *p);
     ~BattleState();
 
     void update();
