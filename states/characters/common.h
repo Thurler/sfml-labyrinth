@@ -73,7 +73,7 @@ struct LibraryStats {
 };
 
 struct CharacterStats {
-  unsigned long level = 500;
+  unsigned long level = 1;
   unsigned long long exp = 0;
   unsigned long long bp = 0;
   unsigned long long hp;
