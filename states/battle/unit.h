@@ -5,7 +5,7 @@
 
 #include "../common.h"
 #include "../../objects/atbbar.h"
-#include "../../objects/sprite.h"
+#include "../../objects/shadedsprite.h"
 
 struct UnitStats {
   unsigned long level;
@@ -41,12 +41,11 @@ struct UnitStats {
 class UnitState: public CommonState {
   protected:
     static constexpr unsigned int highlightDuration = 30;
-    static constexpr unsigned int highlightLimit = 255;
+    static constexpr float highlightLimit = 1.0f;
     static constexpr float highlightIncrement = (float)highlightLimit / highlightDuration;
     sf::Vector2f position;
     ATBBarObject *atbBar;
-    SpriteObject *faceHL;
-    SpriteObject *face;
+    ShadedSpriteObject *face;
     UnitStats stats;
     Slot slot;
     bool highlighted = false;
@@ -58,6 +57,7 @@ class UnitState: public CommonState {
     virtual ~UnitState() {}
 
     void update();
+    void draw(sf::RenderWindow *w);
 
     bool isEnemy() { return slot > Slot::PLAYER_12; }
     bool isAtbFilled() { return atbBar->isFilled(); }

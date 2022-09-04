@@ -9,7 +9,6 @@
 #include "../../objects/character/statname.h"
 #include "../../objects/character/tpbar.h"
 #include "../../objects/character/namebar.h"
-#include "../../objects/sprite.h"
 #include "../characters/common.h"
 
 class CharacterState: public UnitState {

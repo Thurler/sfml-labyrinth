@@ -75,10 +75,10 @@ sf::Vector2f slotPositions(Slot slot) {
 }
 
 void CharacterState::draw(sf::RenderWindow *window) {
-  face->draw(window);
   if (highlighted) {
-    faceHL->draw(window);
+    UnitState::draw(window);
   }
+  face->draw(window);
   tpBar->draw(window);
   mpBar->draw(window);
   hpBar->draw(window);
@@ -117,12 +117,10 @@ CharacterState::CharacterState(
   nameBar = new CharNameBarObject(global, position, character->getName());
   global->logMalloc("character|namebar");
   std::string fnameL = character->getTextureName() + "_LFace.png";
-  std::string fnameHL = character->getTextureName() + "_LFace_HL.png";
-  face = new SpriteObject(global, position + faceOffset, Alignment::BottomLeft, fnameL);
+  face = new ShadedSpriteObject(
+    global, position + faceOffset, Alignment::BottomLeft, fnameL, global->highlightShader
+  );
   global->logMalloc("character|face");
-  faceHL = new SpriteObject(global, position + faceOffset, Alignment::BottomLeft, fnameHL);
-  global->logMalloc("character|faceHL");
-  faceHL->setColor(sf::Color::Transparent);
 }
 
 CharacterState::~CharacterState() {
@@ -157,9 +155,5 @@ CharacterState::~CharacterState() {
   if (face) {
     delete face;
     global->logFree("character|face");
-  }
-  if (faceHL) {
-    delete faceHL;
-    global->logFree("character|faceHL");
   }
 }

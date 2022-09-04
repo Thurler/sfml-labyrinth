@@ -17,6 +17,7 @@ class ShaderObject {
 
     sf::Shader *getShader() { return &shader; }
     void setShaderArg(const std::string &a, float v) { shader.setUniform(a, v); }
+    void setShaderArg(const std::string &a, const sf::Color &c) { shader.setUniform(a, sf::Glsl::Vec4(c)); }
 };
 
 #endif

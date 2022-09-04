@@ -6,9 +6,11 @@
 
 #include <SFML/Graphics.hpp>
 #include "objects/texture.h"
+#include "objects/shader.h"
 
 class GlobalValues {
   private:
+    static const sf::Color highlightColor;
     sf::Clock clock;
     sf::Font font;
     bool focus = true;
@@ -25,6 +27,7 @@ class GlobalValues {
 
   public:
     TextureObject *shadeTexture;
+    ShaderObject *highlightShader;
 
     sf::Time restartTime() { return clock.restart(); } // only main should call this
     sf::Font *getFont() { return &font; }
@@ -50,21 +53,8 @@ class GlobalValues {
     void setKeyCancel(bool c) { isKeyCancel = c; }
     void setElapsedTime(double t) { elapsedTime = t; }
 
-    GlobalValues() {
-      mallocLog.open("malloc.log");
-      font.loadFromFile("C:/Windows/Fonts/meiryo.ttc");
-      shadeTexture = new TextureObject("./img/Gradient.png");
-      logMalloc("global|shadeTexture");
-    }
-    ~GlobalValues() {
-      if (shadeTexture) {
-        delete shadeTexture;
-        logFree("global|shadeTexture");
-      }
-      mallocLog.close();
-      std::cout << "ALLOCS: " << allocs << std::endl;
-      std::cout << "FREES: " << frees << std::endl;
-    }
+    GlobalValues();
+    ~GlobalValues();
 };
 
 #endif

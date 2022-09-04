@@ -9,7 +9,7 @@
 
 class ShadedSpriteObject: public SpriteObject {
   private:
-    bool shaderActive = true;
+    bool shaderActive = false;
     bool didInstanceShader = false;
     ShaderObject *shader;
 

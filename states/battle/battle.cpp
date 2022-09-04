@@ -104,6 +104,7 @@ BattleState::BattleState(GlobalValues *global, PartyState *party) : CommonState(
     global, sf::Vector2f(0, 0), Alignment::TopLeft,
     "./img/Battle_Background.png", "./shaders/hueshift.frag"
   );
+  background->setShaderActive(true);
   global->logMalloc("test|background");
   panorama = new SpriteObject(
     global, sf::Vector2f(40, 0), Alignment::TopLeft, "./img/Battle_Panorama_1F.png"

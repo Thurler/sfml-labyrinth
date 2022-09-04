@@ -39,10 +39,10 @@ sf::Vector2f enemySlotPositions(Slot slot) {
 }
 
 void EnemyState::draw(sf::RenderWindow *window) {
-  face->draw(window);
   if (highlighted) {
-    faceHL->draw(window);
+    UnitState::draw(window);
   }
+  face->draw(window);
   nameBar->draw(window);
   hpBar->draw(window);
   atbBar->draw(window);
@@ -67,12 +67,11 @@ EnemyState::EnemyState(GlobalValues *global, Slot slot) : UnitState(global, slot
   );
   global->logMalloc("enemy|namebar");
   std::string fname = "./img/Enemy_1F_TrapWeed.png";
-  face = new SpriteObject(global, position, Alignment::BottomCenter, fname);
+  face = new ShadedSpriteObject(
+    global, position, Alignment::BottomCenter, fname, global->highlightShader
+  );
   global->logMalloc("enemy|facebar");
   std::string fnameHL = "./img/Enemy_1F_TrapWeed_HL.png";
-  faceHL = new SpriteObject(global, position, Alignment::BottomCenter, fnameHL);
-  global->logMalloc("character|faceHL");
-  faceHL->setColor(sf::Color::Transparent);
 }
 
 EnemyState::~EnemyState() {
@@ -87,10 +86,6 @@ EnemyState::~EnemyState() {
   if (face) {
     delete face;
     global->logFree("enemy|face");
-  }
-  if (faceHL) {
-    delete faceHL;
-    global->logFree("enemy|faceHL");
   }
   if (nameBar) {
     delete nameBar;

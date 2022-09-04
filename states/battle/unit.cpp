@@ -17,16 +17,18 @@ void UnitState::update() {
         highlightCycle = true;
       }
     }
-    sf::Color color = sf::Color(255, 255, 255, highlightValue);
-    faceHL->setColor(color);
   }
 }
 
+void UnitState::draw(sf::RenderWindow *w) {
+  face->setShaderArg("opacity", highlightValue);
+}
+
 void UnitState::setHighlight(bool hl) {
+  face->setShaderActive(hl);
   highlighted = hl;
   if (!highlighted) {
     highlightValue = 0;
     highlightCycle = true;
-    faceHL->setColor(sf::Color::Transparent);
   }
 }
