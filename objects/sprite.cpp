@@ -16,7 +16,7 @@ void SpriteObject::draw(sf::RenderWindow *window) {
 
 SpriteObject::SpriteObject(
   GlobalValues *g, const sf::Vector2f &p, Alignment a, const std::string &textureFilename
-) : position(p), align(a), CommonObject(g) {
+) : CommonObject(g), align(a), position(p) {
   didInstanceTexture = true;
   texture = new TextureObject(textureFilename);
   global->logMalloc("sprite|texture");
@@ -26,7 +26,7 @@ SpriteObject::SpriteObject(
 
 SpriteObject::SpriteObject(
   GlobalValues *g, const sf::Vector2f &p, Alignment a, TextureObject *t
-) : position(p), align(a), texture(t), CommonObject(g) {
+) : CommonObject(g), align(a), position(p), texture(t) {
   sprite.setTexture(*(texture->getTexture()));
   updatePosition();
 }

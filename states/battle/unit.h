@@ -53,7 +53,7 @@ class UnitState: public CommonState {
     float highlightValue = 0;
 
   public:
-    UnitState(GlobalValues *global, Slot s) : slot(s), CommonState(global) {}
+    UnitState(GlobalValues *global, Slot s) : CommonState(global), slot(s) {}
     virtual ~UnitState() {}
 
     void update();

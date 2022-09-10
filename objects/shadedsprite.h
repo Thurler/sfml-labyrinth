@@ -25,11 +25,11 @@ class ShadedSpriteObject: public SpriteObject {
     ShadedSpriteObject(
       GlobalValues *g, const sf::Vector2f &p, Alignment a,
       const std::string &tf, ShaderObject *s
-    ) : shader(s), SpriteObject(g, p, a, tf) {}
+    ) : SpriteObject(g, p, a, tf), shader(s) {}
     ShadedSpriteObject(
       GlobalValues *g, const sf::Vector2f &p, Alignment a,
       TextureObject *t, ShaderObject *s
-    ) : shader(s), SpriteObject(g, p, a, t) {}
+    ) : SpriteObject(g, p, a, t), shader(s) {}
     ~ShadedSpriteObject();
 
     void draw(sf::RenderWindow *w);

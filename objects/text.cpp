@@ -28,7 +28,7 @@ void TextObject::draw(sf::RenderWindow *window) {
 
 TextObject::TextObject(
   GlobalValues *g, const sf::Vector2f &p, sf::Color c, unsigned int s, bool b, Alignment a
-) : position(p), align(a), CommonObject(g) {
+) : CommonObject(g), align(a), position(p) {
   sf::Font *font = (g->getFont());
   if (!b) {
     const_cast<sf::Texture &>(font->getTexture(s)).setSmooth(false);

@@ -28,8 +28,8 @@ class BarObject: public CommonObject {
       GlobalValues *g, const sf::Vector2f &p, const sf::Color &c, const sf::Color cb,
       unsigned int w, unsigned int h, unsigned long long s, unsigned long long m
     ) :
-      position(p), color(c), colorBackground(cb), width(w), height(h),
-      curValue(s), maxValue(m), CommonObject(g) {}
+      CommonObject(g), position(p), color(c), colorBackground(cb), width(w),
+      height(h), curValue(s), maxValue(m) {}
     ~BarObject() {}
 
     virtual void update() {}
