@@ -19,7 +19,7 @@ class TextObject: public CommonObject {
     TextObject(
       GlobalValues *g, const sf::Vector2f &p, sf::Color c, unsigned int s, bool b, Alignment a
     );
-    ~TextObject() {}
+    virtual ~TextObject() {}
 
     virtual void update() {}
     virtual void draw(sf::RenderWindow *w);

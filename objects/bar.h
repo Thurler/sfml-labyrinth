@@ -30,7 +30,7 @@ class BarObject: public CommonObject {
     ) :
       CommonObject(g), position(p), color(c), colorBackground(cb), width(w),
       height(h), curValue(s), maxValue(m) {}
-    ~BarObject() {}
+    virtual ~BarObject() {}
 
     virtual void update() {}
     virtual void draw(sf::RenderWindow *w);

@@ -7,7 +7,7 @@ class CommonState: public CommonObject {
   protected:
     CommonState(GlobalValues *g) : CommonObject(g) {}
   public:
-    ~CommonState() {}
+    virtual ~CommonState() {}
 };
 
 #endif

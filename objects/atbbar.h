@@ -22,7 +22,7 @@ class ATBBarObject: public BarObject {
       GlobalValues *g, const sf::Vector2f &p, const sf::Vector2f &bo, const sf::Vector2f &to,
       unsigned int sv, unsigned int t, unsigned int w, unsigned int h, Alignment a
     );
-    ~ATBBarObject();
+    virtual ~ATBBarObject();
 
     void update();
     void draw(sf::RenderWindow *w);
