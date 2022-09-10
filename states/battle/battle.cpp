@@ -58,6 +58,7 @@ void BattleState::update() {
       }
       break;
     }
+    case BattleMode::PLAYER_SPELL:
     case BattleMode::ENEMY_SPELL:
     case BattleMode::PLAYER_TURN: {
       bool confirm = global->getKeyConfirm();

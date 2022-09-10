@@ -41,6 +41,8 @@ int main() {
           global->restartTime();
           global->setElapsedTime(time.asMicroseconds() / 1000000.0);
           break;
+        default:
+          break;
       }
     }
 

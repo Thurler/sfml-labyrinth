@@ -35,8 +35,9 @@ sf::Vector2f enemySlotPositions(Slot slot) {
       return sf::Vector2f(640, 220);
     case ENEMY_8:
       return sf::Vector2f(1040, 220);
+    default:
+      return sf::Vector2f(0, 0);
   }
-  return sf::Vector2f(0, 0);
 }
 
 void EnemyState::draw(sf::RenderWindow *window) {

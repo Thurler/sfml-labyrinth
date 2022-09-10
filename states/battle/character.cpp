@@ -71,8 +71,9 @@ sf::Vector2f slotPositions(Slot slot) {
       return sf::Vector2f(636, 195);
     case PLAYER_12:
       return sf::Vector2f(945, 195);
+    default:
+      return sf::Vector2f(0, 0);
   }
-  return sf::Vector2f(0, 0);
 }
 
 void CharacterState::draw(sf::RenderWindow *window) {
